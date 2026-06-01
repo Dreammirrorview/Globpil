@@ -1,0 +1,200 @@
+                    <td>${customer.email}</td>
+                    <td>${customer.phone}</td>
+                    <td>₦${formatNumber(customer.balance.NGN || 0)}</td>
+                    <td><span class="badge ${customer.status}">${customer.status}</span></td>
+                    <td>
+                        <button onclick="viewCustomer('${customer.accountNumber}')" style="padding: 5px 10px; margin: 2px;">View</button>
+                        <button onclick="editCustomer('${customer.accountNumber}')" style="padding: 5px 10px; margin: 2px;">Edit</button>
+                        <button onclick="deleteCustomer('${customer.accountNumber}')" style="padding: 5px 10px; margin: 2px; background: #e74c3c; color: #fff; border: none;">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // View customer
+        function viewCustomer(accountNumber) {
+            const customer = database.customers.find(c => c.accountNumber === accountNumber);
+            if (!customer) return;
+
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4>Personal Information</h4>
+                        <p><strong>Name:</strong> ${customer.name}</p>
+                        <p><strong>Account Number:</strong> ${customer.accountNumber}</p>
+                        <p><strong>Serial Number:</strong> ${customer.serialNumber}</p>
+                        <p><strong>Email:</strong> ${customer.email}</p>
+                        <p><strong>Phone:</strong> ${customer.phone}</p>
+                        <p><strong>Date of Birth:</strong> ${formatDate(customer.dob)}</p>
+                        <p><strong>Gender:</strong> ${customer.gender}</p>
+                    </div>
+                    <div>
+                        <h4>Account Information</h4>
+                        <p><strong>NIN:</strong> ${customer.nin}</p>
+                        <p><strong>BVN:</strong> ${customer.bvn}</p>
+                        <p><strong>Financial Status:</strong> ${customer.financial}</p>
+                        <p><strong>Address:</strong> ${customer.address}</p>
+                        <p><strong>Status:</strong> <span class="badge ${customer.status}">${customer.status}</span></p>
+                        <p><strong>KYC Verified:</strong> ${customer.kycVerified ? 'Yes' : 'No'}</p>
+                        <p><strong>Registered:</strong> ${formatDate(customer.createdAt)}</p>
+                    </div>
+                </div>
+                <div style="margin-top: 20px;">
+                    <h4>Account Balances</h4>
+                    <p><strong>NGN:</strong> ₦${formatNumber(customer.balance.NGN || 0)}</p>
+                    <p><strong>USD:</strong> $${formatNumber(customer.balance.USD || 0)}</p>
+                    <p><strong>Pilgrim Coin:</strong> ${formatNumber(customer.crypto.PIL || 0)} PIL</p>
+                </div>
+            `;
+
+            document.getElementById('modal-title').textContent = 'Customer Details';
+            document.getElementById('modal').classList.add('active');
+        }
+
+        // Edit customer
+        function editCustomer(accountNumber) {
+            const customer = database.customers.find(c => c.accountNumber === accountNumber);
+            if (!customer) return;
+
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <form id="edit-customer-form">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="edit-name" value="${customer.name}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="edit-email" value="${customer.email}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="edit-phone" value="${customer.phone}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" id="edit-address" value="${customer.address}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>NGN Balance</label>
+                        <input type="number" id="edit-balance" value="${customer.balance.NGN || 0}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="edit-status" required>
+                            <option value="active" ${customer.status === 'active' ? 'selected' : ''}>Active</option>
+                            <option value="suspended" ${customer.status === 'suspended' ? 'selected' : ''}>Suspended</option>
+                            <option value="closed" ${customer.status === 'closed' ? 'selected' : ''}>Closed</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-submit">Save Changes</button>
+                </form>
+            `;
+
+            document.getElementById('modal-title').textContent = 'Edit Customer';
+            document.getElementById('modal').classList.add('active');
+
+            document.getElementById('edit-customer-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                customer.name = document.getElementById('edit-name').value;
+                customer.email = document.getElementById('edit-email').value;
+                customer.phone = document.getElementById('edit-phone').value;
+                customer.address = document.getElementById('edit-address').value;
+                customer.balance.NGN = parseFloat(document.getElementById('edit-balance').value);
+                customer.status = document.getElementById('edit-status').value;
+
+                saveDatabase();
+                closeModal();
+                loadCustomers();
+                alert('Customer updated successfully!');
+                addTerminalLog(`Customer updated: ${accountNumber}`, 'success');
+            });
+        }
+
+        // Delete customer
+        function deleteCustomer(accountNumber) {
+            const password = prompt('Enter admin password to delete this customer:');
+            if (password !== 'pilgrimolawale') {
+                alert('Invalid password!');
+                return;
+            }
+
+            if (confirm('Are you sure you want to delete this customer? This action cannot be undone.')) {
+                const index = database.customers.findIndex(c => c.accountNumber === accountNumber);
+                if (index > -1) {
+                    database.customers.splice(index, 1);
+                    saveDatabase();
+                    loadCustomers();
+                    alert('Customer deleted successfully!');
+                    addTerminalLog(`Customer deleted: ${accountNumber}`, 'warning');
+                }
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Show alert
+        function showAlert(elementId, message, type) {
+            const alert = document.getElementById(elementId);
+            alert.textContent = message;
+            alert.className = `alert ${type} active`;
+            setTimeout(() => {
+                alert.classList.remove('active');
+            }, 5000);
+        }
+
+        // Show forgot password
+        function showForgotPassword() {
+            const email = prompt('Enter your email address:');
+            if (email) {
+                const customer = database.customers.find(c => c.email === email);
+                if (customer) {
+                    alert(`Your PIN is: ${customer.pin}`);
+                } else {
+                    alert('Email not found!');
+                }
+            }
+        }
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            isAdmin = false;
+            showPage('login');
+            addTerminalLog('User logged out', 'info');
+        }
+
+        // Generate reference
+        function generateReference() {
+            return 'GPB' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substring(2, 8).toUpperCase();
+        }
+
+        // Format number
+        function formatNumber(num, decimals = 2) {
+            return parseFloat(num || 0).toLocaleString('en-US', {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals
+            });
+        }
+
+        // Format date
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-NG', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            initSystem();
+        };
+    </script>
+</body>
+</html>

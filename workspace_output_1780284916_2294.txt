@@ -1,0 +1,10 @@
+  adding: pilgrim-bank/ (stored 0%)
+  adding: pilgrim-bank/frontend/ (stored 0%)
+  adding: pilgrim-bank/frontend/index.html (deflated 86%)
+  adding: pilgrim-bank/frontend/owner-photo.jpg (deflated 0%)
+  adding: pilgrim-bank/CREDENTIALS.md (deflated 69%)
+  adding: pilgrim-bank/backend/ (stored 0%)
+  adding: pilgrim-bank/backend/package.json (deflated 41%)
+  adding: pilgrim-bank/backend/package-lock.json (deflated 73%)
+  adding: pilgrim-bank/backend/server.js (deflated 81%)
+-rw-r--r-- 1 root root 194K Jun  1 03:35 pilgrim-bank.zip

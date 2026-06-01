@@ -1,0 +1,95 @@
+[SEED] Initializing database with owner and sample customers...
+[SEED] Created 5 customer accounts
+
+============================================================
+  GLOBAL PILGRIM BANK NIGERIA - Backend Server
+  Owner: Olawale Abdul-ganiyu Adeshina
+  Server running on http://localhost:3001
+============================================================
+
+  Transaction Flow: Wallet Debit → Payment API → Ledger Update → SMS/Email Alert
+
+  API Endpoints:
+    POST /api/admin/login          - Admin login
+    POST /api/customer/login       - Customer login
+    GET  /api/admin/overview        - Admin dashboard stats
+    GET  /api/admin/customers       - List all customers
+    POST /api/admin/customers       - Create new customer
+    GET  /api/admin/transactions    - List all transactions
+    GET  /api/admin/ledger          - View ledger
+    GET  /api/admin/alerts          - View all alerts
+    POST /api/admin/credit          - Credit an account
+    POST /api/admin/debit           - Debit an account
+    POST /api/transfer              - Process transfer (full flow)
+    GET  /api/verify-flow           - Verify transaction flow
+    GET  /api/lookup/:accountNumber  - Account name lookup
+    GET  /api/customer/:acct        - Get customer details
+    GET  /api/customer/:acct/transactions - Customer transactions
+    GET  /api/customer/:acct/ledger          - Customer ledger
+    GET  /api/customer/:acct/alerts          - Customer alerts
+    GET  /api/system/info           - System information
+
+============================================================
+
+
+[VERIFY] Running transaction flow verification...
+[WALLET DEBIT] Debiting Test User (TEST001): NGN 5000
+[WALLET DEBIT] Current NGN balance: 10000
+[WALLET DEBIT] SUCCESS - New NGN balance: 5000
+
+[API] Transfer request received
+[API] From: 1234567890, To: 9876543210, Amount: NGN 50000
+
+============================================================
+[TRANSACTION] Starting full transaction flow...
+[TRANSACTION] From: 1234567890 → To: 9876543210
+[TRANSACTION] Amount: NGN 50000
+============================================================
+
+[WALLET DEBIT] Debiting Adebayo Chukwuma (1234567890): NGN 50000
+[WALLET DEBIT] Current NGN balance: 500000
+[WALLET DEBIT] SUCCESS - New NGN balance: 450000
+[PAYMENT API] Processing payment: 1234567890 → 9876543210, NGN 50000
+[PAYMENT API] Internal transfer SUCCESS - Credited Fatima Ibrahim: NGN 50000
+[PAYMENT API] Payment reference: GPBMPUNEMI9PI7WBW
+[LEDGER UPDATE] Recording transaction in ledger...
+[LEDGER UPDATE] SUCCESS - Double-entry recorded for GPBMPUNEMI9PI7WBW
+[ALERT] Generating SMS/Email alerts...
+[ALERT] 2 alert(s) generated successfully
+
+============================================================
+[TRANSACTION] ALL STEPS COMPLETED SUCCESSFULLY
+[TRANSACTION] Reference: GPBMPUNEMI9PI7WBW
+============================================================
+
+
+[VERIFY] Running transaction flow verification...
+[WALLET DEBIT] Debiting Test User (TEST001): NGN 5000
+[WALLET DEBIT] Current NGN balance: 10000
+[WALLET DEBIT] SUCCESS - New NGN balance: 5000
+
+[API] Transfer request received
+[API] From: 1234567890, To: 9876543210, Amount: NGN 25000
+
+============================================================
+[TRANSACTION] Starting full transaction flow...
+[TRANSACTION] From: 1234567890 → To: 9876543210
+[TRANSACTION] Amount: NGN 25000
+============================================================
+
+[WALLET DEBIT] Debiting Adebayo Chukwuma (1234567890): NGN 25000
+[WALLET DEBIT] Current NGN balance: 450000
+[WALLET DEBIT] SUCCESS - New NGN balance: 425000
+[PAYMENT API] Processing payment: 1234567890 → 9876543210, NGN 25000
+[PAYMENT API] Internal transfer SUCCESS - Credited Fatima Ibrahim: NGN 25000
+[PAYMENT API] Payment reference: GPBMPUNO2RGNO92V4
+[LEDGER UPDATE] Recording transaction in ledger...
+[LEDGER UPDATE] SUCCESS - Double-entry recorded for GPBMPUNO2RGNO92V4
+[ALERT] Generating SMS/Email alerts...
+[ALERT] 2 alert(s) generated successfully
+
+============================================================
+[TRANSACTION] ALL STEPS COMPLETED SUCCESSFULLY
+[TRANSACTION] Reference: GPBMPUNO2RGNO92V4
+============================================================
+

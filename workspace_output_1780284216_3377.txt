@@ -1,0 +1,35 @@
+946:                                <div class="investment-card" onclick="selectInvestment('shares')">
+951:                                <div class="investment-card" onclick="selectInvestment('fixed')">
+956:                                <div class="investment-card" onclick="selectInvestment('mutual')">
+1036:                                <input type="text" id="search-customer" placeholder="Search by account number, name, or phone" onkeyup="searchCustomers()">
+1339:            startTerminalMonitoring();
+1342:            loadBettingData();
+1345:            addTerminalLog('System initialized successfully', 'success');
+1346:            addTerminalLog('Bank Code: ' + database.system.bankCode, 'info');
+1347:            addTerminalLog('SWIFT Code: ' + database.system.swiftCode, 'info');
+1348:            addTerminalLog('Owner: ' + database.system.owner, 'info');
+1461:                addTerminalLog(`Customer login: ${accountNumber}`, 'success');
+1464:                addTerminalLog(`Failed login attempt: ${accountNumber}`, 'error');
+1480:                addTerminalLog('Admin login successful', 'success');
+1483:                addTerminalLog('Failed admin login attempt', 'error');
+1725:            addTerminalLog(`New customer created: ${newCustomer.accountNumber} - ${newCustomer.name}`, 'success');
+1772:                addTerminalLog(`Transfer: ${currentUser.accountNumber} → ${accountNumber}, ₦${amount}`, 'success');
+1799:                    addTerminalLog(`External transfer completed: ${transaction.reference}`, 'success');
+1839:            addTerminalLog(`SWIFT transfer initiated: ${transaction.reference}`, 'info');
+1846:                addTerminalLog(`SWIFT transfer completed: ${transaction.reference}`, 'success');
+1911:                addTerminalLog(`Transaction approved: ${reference}`, 'success');
+1923:                addTerminalLog(`Transaction rejected: ${reference}`, 'error');
+1989:        function loadBettingData() {
+2059:            addTerminalLog(`Bet placed: ₦${betAmount} at ${odds}x`, 'info');
+2063:        function selectInvestment(type) {
+2112:            addTerminalLog(`Investment registered: ${type} - ₦${investmentAmount}`, 'success');
+2116:        function startTerminalMonitoring() {
+2121:                    addTerminalLog(`IP Address: ${data.ip}`, 'info');
+2122:                    addTerminalLog(`Connection: Secure`, 'success');
+2125:                    addTerminalLog('IP detection: Using local connection', 'warning');
+2131:                addTerminalLog(`System check: ${now.toLocaleString()}`, 'info');
+2136:        function addTerminalLog(message, type = 'info') {
+2148:        function searchCustomers() {
+2273:                addTerminalLog(`Customer updated: ${accountNumber}`, 'success');
+2292:                    addTerminalLog(`Customer deleted: ${accountNumber}`, 'warning');
+2330:            addTerminalLog('User logged out', 'info');

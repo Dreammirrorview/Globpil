@@ -1,0 +1,32 @@
+# Global Pilgrim Bank Nigeria - Development Tasks
+
+## Phase 1: Core Structure
+- [x] Create main HTML structure with all pages
+- [x] Design CSS styling for banking interface
+- [x] Implement JavaScript database and core functions
+
+## Phase 2: Admin System
+- [x] Admin login with credentials (olawale/pilgrimolawale)
+- [x] Admin dashboard with all management features
+- [x] Customer account creation and management
+- [x] Transaction approval system
+
+## Phase 3: Customer System
+- [x] Customer login with generated PIN
+- [x] Customer dashboard
+- [x] Local and international transfers
+
+## Phase 4: Banking Features
+- [x] Mining system for crypto and currencies
+- [x] Investment and shares program
+- [x] Betting integration with football leagues
+- [x] Payment switch integration
+
+## Phase 5: Security & Terminal
+- [x] Security alerts and monitoring
+- [x] Terminal with IP/location tracking
+- [x] Database backup and validation
+
+## Phase 6: Integration
+- [x] Start HTTP server and test
+- [x] Final verification

@@ -1,0 +1,210 @@
+{
+    "success": true,
+    "reference": "GPBMPUNEMI9PI7WBW",
+    "flowLog": [
+        {
+            "step": "WALLET_DEBIT",
+            "status": "STARTED",
+            "timestamp": "2026-06-01T03:27:47.312Z"
+        },
+        {
+            "step": "WALLET_DEBIT",
+            "status": "COMPLETED",
+            "data": {
+                "success": true,
+                "previousBalance": 500000,
+                "newBalance": 450000,
+                "debitedAmount": 50000,
+                "currency": "NGN"
+            },
+            "timestamp": "2026-06-01T03:27:47.313Z"
+        },
+        {
+            "step": "PAYMENT_API",
+            "status": "STARTED",
+            "timestamp": "2026-06-01T03:27:47.313Z"
+        },
+        {
+            "step": "PAYMENT_API",
+            "status": "COMPLETED",
+            "data": {
+                "success": true,
+                "payment": {
+                    "reference": "GPBMPUNEMI9PI7WBW",
+                    "date": "2026-06-01T03:27:47.313Z",
+                    "from": "1234567890",
+                    "to": "9876543210",
+                    "amount": 50000,
+                    "currency": "NGN",
+                    "bankCode": "999",
+                    "bankName": "Global Pilgrim Bank",
+                    "narration": "Test transfer full flow",
+                    "type": "internal_transfer",
+                    "status": "completed",
+                    "recipientName": "Fatima Ibrahim"
+                },
+                "reference": "GPBMPUNEMI9PI7WBW"
+            },
+            "timestamp": "2026-06-01T03:27:47.313Z"
+        },
+        {
+            "step": "LEDGER_UPDATE",
+            "status": "STARTED",
+            "timestamp": "2026-06-01T03:27:47.313Z"
+        },
+        {
+            "step": "LEDGER_UPDATE",
+            "status": "COMPLETED",
+            "data": {
+                "success": true,
+                "ledgerEntry": {
+                    "id": "81a2e617-46b4-4302-94b5-ac1790eb3a90",
+                    "reference": "GPBMPUNEMI9PI7WBW",
+                    "date": "2026-06-01T03:27:47.313Z",
+                    "type": "double_entry",
+                    "entries": [
+                        {
+                            "account": "1234567890",
+                            "entryType": "DEBIT",
+                            "amount": 50000,
+                            "currency": "NGN",
+                            "previousBalance": 500000,
+                            "newBalance": 450000,
+                            "description": "Transfer to 9876543210"
+                        },
+                        {
+                            "account": "9876543210",
+                            "entryType": "CREDIT",
+                            "amount": 50000,
+                            "currency": "NGN",
+                            "description": "Transfer from 1234567890",
+                            "previousBalance": 750000,
+                            "newBalance": 800000
+                        }
+                    ],
+                    "status": "completed",
+                    "timestamp": "2026-06-01T03:27:47.313Z"
+                }
+            },
+            "timestamp": "2026-06-01T03:27:47.313Z"
+        },
+        {
+            "step": "ALERT_GENERATION",
+            "status": "STARTED",
+            "timestamp": "2026-06-01T03:27:47.313Z"
+        },
+        {
+            "step": "ALERT_GENERATION",
+            "status": "COMPLETED",
+            "data": {
+                "success": true,
+                "alerts": [
+                    {
+                        "id": "adaed3a8-43a5-4512-8dd9-a371997cb4e9",
+                        "reference": "GPBMPUNEMI9PI7WBW",
+                        "date": "2026-06-01T03:27:47.314Z",
+                        "type": "debit",
+                        "accountNumber": "1234567890",
+                        "customerName": "Adebayo Chukwuma",
+                        "channel": "both",
+                        "sms": {
+                            "to": "+2348098765432",
+                            "message": "GPB Alert: NGN 50,000.00 debited from Acct 7890 to Fatima Ibrahim. Bal: NGN 450,000.00. Ref: GPBMPUNEMI9PI7WBW"
+                        },
+                        "email": {
+                            "to": "adebayo.chukwuma@gmail.com",
+                            "subject": "Debit Alert - NGN 50,000.00 Transfer",
+                            "body": "Dear Adebayo Chukwuma,\n\nA debit of NGN 50,000.00 occurred on your account (1234567890).\n\nDetails:\n- Amount: NGN 50,000.00\n- Recipient: Fatima Ibrahim\n- Narration: Test transfer full flow\n- Reference: GPBMPUNEMI9PI7WBW\n- New Balance: NGN 450,000.00\n- Date: 1 Jun 2026, 03:27\n\nThank you for banking with Global Pilgrim Bank Nigeria.\n\nBest regards,\nGlobal Pilgrim Bank Nigeria"
+                        },
+                        "status": "sent"
+                    },
+                    {
+                        "id": "97b7c14d-774b-4191-aa37-7ee29aeb49e6",
+                        "reference": "GPBMPUNEMI9PI7WBW",
+                        "date": "2026-06-01T03:27:47.360Z",
+                        "type": "credit",
+                        "accountNumber": "9876543210",
+                        "customerName": "Fatima Ibrahim",
+                        "channel": "both",
+                        "sms": {
+                            "to": "+2348076543210",
+                            "message": "GPB Alert: NGN 50,000.00 credited to Acct 3210 from Adebayo Chukwuma. Bal: NGN 800,000.00. Ref: GPBMPUNEMI9PI7WBW"
+                        },
+                        "email": {
+                            "to": "fatima.ibrahim@yahoo.com",
+                            "subject": "Credit Alert - NGN 50,000.00 Received",
+                            "body": "Dear Fatima Ibrahim,\n\nYour account (9876543210) has been credited with NGN 50,000.00.\n\nDetails:\n- Amount: NGN 50,000.00\n- Sender: Adebayo Chukwuma\n- Narration: Test transfer full flow\n- Reference: GPBMPUNEMI9PI7WBW\n- New Balance: NGN 800,000.00\n- Date: 1 Jun 2026, 03:27\n\nThank you for banking with Global Pilgrim Bank Nigeria.\n\nBest regards,\nGlobal Pilgrim Bank Nigeria"
+                        },
+                        "status": "sent"
+                    }
+                ]
+            },
+            "timestamp": "2026-06-01T03:27:47.360Z"
+        }
+    ],
+    "transaction": {
+        "reference": "GPBMPUNEMI9PI7WBW",
+        "date": "2026-06-01T03:27:47.313Z",
+        "from": "1234567890",
+        "to": "9876543210",
+        "amount": 50000,
+        "currency": "NGN",
+        "bankCode": "999",
+        "bankName": "Global Pilgrim Bank",
+        "narration": "Test transfer full flow",
+        "type": "internal_transfer",
+        "status": "completed",
+        "recipientName": "Fatima Ibrahim"
+    },
+    "alerts": [
+        {
+            "id": "adaed3a8-43a5-4512-8dd9-a371997cb4e9",
+            "reference": "GPBMPUNEMI9PI7WBW",
+            "date": "2026-06-01T03:27:47.314Z",
+            "type": "debit",
+            "accountNumber": "1234567890",
+            "customerName": "Adebayo Chukwuma",
+            "channel": "both",
+            "sms": {
+                "to": "+2348098765432",
+                "message": "GPB Alert: NGN 50,000.00 debited from Acct 7890 to Fatima Ibrahim. Bal: NGN 450,000.00. Ref: GPBMPUNEMI9PI7WBW"
+            },
+            "email": {
+                "to": "adebayo.chukwuma@gmail.com",
+                "subject": "Debit Alert - NGN 50,000.00 Transfer",
+                "body": "Dear Adebayo Chukwuma,\n\nA debit of NGN 50,000.00 occurred on your account (1234567890).\n\nDetails:\n- Amount: NGN 50,000.00\n- Recipient: Fatima Ibrahim\n- Narration: Test transfer full flow\n- Reference: GPBMPUNEMI9PI7WBW\n- New Balance: NGN 450,000.00\n- Date: 1 Jun 2026, 03:27\n\nThank you for banking with Global Pilgrim Bank Nigeria.\n\nBest regards,\nGlobal Pilgrim Bank Nigeria"
+            },
+            "status": "sent"
+        },
+        {
+            "id": "97b7c14d-774b-4191-aa37-7ee29aeb49e6",
+            "reference": "GPBMPUNEMI9PI7WBW",
+            "date": "2026-06-01T03:27:47.360Z",
+            "type": "credit",
+            "accountNumber": "9876543210",
+            "customerName": "Fatima Ibrahim",
+            "channel": "both",
+            "sms": {
+                "to": "+2348076543210",
+                "message": "GPB Alert: NGN 50,000.00 credited to Acct 3210 from Adebayo Chukwuma. Bal: NGN 800,000.00. Ref: GPBMPUNEMI9PI7WBW"
+            },
+            "email": {
+                "to": "fatima.ibrahim@yahoo.com",
+                "subject": "Credit Alert - NGN 50,000.00 Received",
+                "body": "Dear Fatima Ibrahim,\n\nYour account (9876543210) has been credited with NGN 50,000.00.\n\nDetails:\n- Amount: NGN 50,000.00\n- Sender: Adebayo Chukwuma\n- Narration: Test transfer full flow\n- Reference: GPBMPUNEMI9PI7WBW\n- New Balance: NGN 800,000.00\n- Date: 1 Jun 2026, 03:27\n\nThank you for banking with Global Pilgrim Bank Nigeria.\n\nBest regards,\nGlobal Pilgrim Bank Nigeria"
+            },
+            "status": "sent"
+        }
+    ],
+    "summary": {
+        "sender": "Adebayo Chukwuma",
+        "senderAccount": "1234567890",
+        "recipient": "Fatima Ibrahim",
+        "recipientAccount": "9876543210",
+        "amount": 50000,
+        "currency": "NGN",
+        "newSenderBalance": 450000,
+        "reference": "GPBMPUNEMI9PI7WBW",
+        "status": "completed"
+    }
+}

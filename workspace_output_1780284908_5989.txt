@@ -1,0 +1,40 @@
+{
+    "success": true,
+    "reference": "GPBMPUNO2RGNO92V4",
+    "flowLog": [
+        {
+            "step": "WALLET_DEBIT",
+            "status": "STARTED",
+            "timestamp": "2026-06-01T03:35:08.284Z"
+        },
+        {
+            "step": "WALLET_DEBIT",
+            "status": "COMPLETED",
+            "data": {
+                "success": true,
+                "previousBalance": 450000,
+                "newBalance": 425000,
+                "debitedAmount": 25000,
+                "currency": "NGN"
+            },
+            "timestamp": "2026-06-01T03:35:08.284Z"
+        },
+        {
+            "step": "PAYMENT_API",
+            "status": "STARTED",
+            "timestamp": "2026-06-01T03:35:08.284Z"
+        },
+        {
+            "step": "PAYMENT_API",
+            "status": "COMPLETED",
+            "data": {
+                "success": true,
+                "payment": {
+                    "reference": "GPBMPUNO2RGNO92V4",
+                    "date": "2026-06-01T03:35:08.284Z",
+                    "from": "1234567890",
+                    "to": "9876543210",
+                    "amount": 25000,
+                    "currency": "NGN",
+                    "bankCode": "999",
+                    "bankName": "Global Pilgrim Bank",

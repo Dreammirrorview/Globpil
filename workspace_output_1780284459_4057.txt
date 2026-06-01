@@ -1,0 +1,36 @@
+{
+    "success": true,
+    "timestamp": "2026-06-01T03:27:39.919Z",
+    "overallStatus": "ALL SYSTEMS OPERATIONAL \u2713",
+    "verificationSteps": [
+        {
+            "step": "1. WALLET DEBIT",
+            "status": "PASS \u2713",
+            "details": "Debited NGN 5,000 from balance 10,000 \u2192 5000"
+        },
+        {
+            "step": "2. PAYMENT API",
+            "status": "PASS \u2713",
+            "details": "Payment processing module operational - sends money to internal/external accounts"
+        },
+        {
+            "step": "3. LEDGER UPDATE",
+            "status": "PASS \u2713",
+            "details": "Double-entry ledger system active - 0 entries recorded"
+        },
+        {
+            "step": "4. SMS/EMAIL ALERT",
+            "status": "PASS \u2713",
+            "details": "Alert generation module operational - 0 alerts generated"
+        }
+    ],
+    "systemInfo": {
+        "totalCustomers": 5,
+        "totalTransactions": 0,
+        "totalLedgerEntries": 0,
+        "totalAlerts": 0,
+        "bankName": "Global Pilgrim Bank Nigeria",
+        "bankCode": "999",
+        "swiftCode": "GPBINGLA"
+    }
+}

@@ -1,0 +1,212 @@
+        function loadBettingData() {
+            const matches = [
+                { id: 1, home: 'Manchester United', away: 'Liverpool', time: '15:00', odds: { home: 2.50, draw: 3.20, away: 2.80 } },
+                { id: 2, home: 'Arsenal', away: 'Chelsea', time: '17:30', odds: { home: 1.85, draw: 3.50, away: 4.00 } },
+                { id: 3, home: 'Barcelona', away: 'Real Madrid', time: '20:00', odds: { home: 2.20, draw: 3.40, away: 3.10 } },
+                { id: 4, home: 'Bayern Munich', away: 'Dortmund', time: '18:30', odds: { home: 1.65, draw: 4.00, away: 5.00 } },
+                { id: 5, home: 'Juventus', away: 'AC Milan', time: '19:45', odds: { home: 2.10, draw: 3.30, away: 3.40 } },
+                { id: 6, home: 'PSG', away: 'Marseille', time: '21:00', odds: { home: 1.55, draw: 4.20, away: 5.50 } }
+            ];
+
+            const container = document.getElementById('live-matches');
+            container.innerHTML = matches.map(match => `
+                <div class="match-card">
+                    <div class="teams">
+                        <div class="team">
+                            <h4>${match.home}</h4>
+                        </div>
+                        <div class="vs">VS</div>
+                        <div class="team">
+                            <h4>${match.away}</h4>
+                        </div>
+                    </div>
+                    <p style="text-align: center; color: #e94560;">${match.time}</p>
+                    <div class="odds">
+                        <div class="odd" onclick="placeBet(${match.id}, 'home', ${match.odds.home})">
+                            <div>1</div>
+                            <div>${match.odds.home.toFixed(2)}</div>
+                        </div>
+                        <div class="odd" onclick="placeBet(${match.id}, 'draw', ${match.odds.draw})">
+                            <div>X</div>
+                            <div>${match.odds.draw.toFixed(2)}</div>
+                        </div>
+                        <div class="odd" onclick="placeBet(${match.id}, 'away', ${match.odds.away})">
+                            <div>2</div>
+                            <div>${match.odds.away.toFixed(2)}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Place bet
+        function placeBet(matchId, selection, odds) {
+            const amount = prompt('Enter bet amount (NGN):');
+            if (!amount) return;
+
+            const betAmount = parseFloat(amount);
+            if (betAmount > (currentUser.balance.NGN || 0)) {
+                alert('Insufficient balance!');
+                return;
+            }
+
+            currentUser.balance.NGN -= betAmount;
+
+            const bet = {
+                id: Date.now(),
+                matchId: matchId,
+                selection: selection,
+                odds: odds,
+                amount: betAmount,
+                potentialWin: betAmount * odds,
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+
+            database.bets.push(bet);
+            saveDatabase();
+
+            alert(`Bet placed successfully!\n\nPotential Win: ₦${formatNumber(bet.potentialWin)}`);
+            loadCustomerDashboard();
+            addTerminalLog(`Bet placed: ₦${betAmount} at ${odds}x`, 'info');
+        }
+
+        // Select investment
+        function selectInvestment(type) {
+            const amount = prompt('Enter investment amount (NGN):');
+            if (!amount) return;
+
+            const investmentAmount = parseFloat(amount);
+            if (investmentAmount > (currentUser.balance.NGN || 0)) {
+                alert('Insufficient balance!');
+                return;
+            }
+
+            currentUser.balance.NGN -= investmentAmount;
+
+            const investment = {
+                id: Date.now(),
+                type: type,
+                amount: investmentAmount,
+                startDate: new Date().toISOString(),
+                endDate: new Date(Date.now() + 5 * 365 * 24 * 60 * 60 * 1000).toISOString(),
+                status: 'active'
+            };
+
+            database.investments.push(investment);
+            saveDatabase();
+
+            // Create mailto link
+            const subject = `Investment Registration - ${currentUser.serialNumber}`;
+            const body = `
+Dear Admin,
+
+I would like to register for ${type} investment.
+
+Details:
+- Serial Number: ${currentUser.serialNumber}
+- Account Number: ${currentUser.accountNumber}
+- Name: ${currentUser.name}
+- Investment Type: ${type}
+- Amount: ₦${formatNumber(investmentAmount)}
+- Email: ${currentUser.email}
+
+Please process my investment.
+
+Best regards,
+${currentUser.name}
+            `;
+
+            window.location.href = `mailto:adeganglobal@gmail.com,pilgrimshares@gmail.com,adeganglobalbank@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            alert('Investment registered! Please check your email to complete the process.');
+            loadCustomerDashboard();
+            addTerminalLog(`Investment registered: ${type} - ₦${investmentAmount}`, 'success');
+        }
+
+        // Terminal monitoring
+        function startTerminalMonitoring() {
+            // Get IP and location
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    addTerminalLog(`IP Address: ${data.ip}`, 'info');
+                    addTerminalLog(`Connection: Secure`, 'success');
+                })
+                .catch(() => {
+                    addTerminalLog('IP detection: Using local connection', 'warning');
+                });
+
+            // Monitor for suspicious activity
+            setInterval(() => {
+                const now = new Date();
+                addTerminalLog(`System check: ${now.toLocaleString()}`, 'info');
+            }, 60000);
+        }
+
+        // Add terminal log
+        function addTerminalLog(message, type = 'info') {
+            const terminal = document.getElementById('system-terminal') || document.getElementById('admin-terminal-output');
+            if (terminal) {
+                const line = document.createElement('div');
+                line.className = `terminal-line ${type}`;
+                line.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+                terminal.appendChild(line);
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+        }
+
+        // Search customers
+        function searchCustomers() {
+            const query = document.getElementById('search-customer').value.toLowerCase();
+            const filtered = database.customers.filter(c => 
+                c.accountNumber.includes(query) ||
+                c.name.toLowerCase().includes(query) ||
+                c.phone.includes(query)
+            );
+
+            const tbody = document.querySelector('#customers-table tbody');
+            tbody.innerHTML = filtered.map(customer => `
+                <tr>
+                    <td>${customer.accountNumber}</td>
+                    <td>${customer.serialNumber}</td>
+                    <td>${customer.name}</td>
+                    <td>${customer.email}</td>
+                    <td>${customer.phone}</td>
+                    <td>₦${formatNumber(customer.balance.NGN || 0)}</td>
+                    <td><span class="badge ${customer.status}">${customer.status}</span></td>
+                    <td>
+                        <button onclick="viewCustomer('${customer.accountNumber}')" style="padding: 5px 10px; margin: 2px;">View</button>
+                        <button onclick="editCustomer('${customer.accountNumber}')" style="padding: 5px 10px; margin: 2px;">Edit</button>
+                        <button onclick="deleteCustomer('${customer.accountNumber}')" style="padding: 5px 10px; margin: 2px; background: #e74c3c; color: #fff; border: none;">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // View customer
+        function viewCustomer(accountNumber) {
+            const customer = database.customers.find(c => c.accountNumber === accountNumber);
+            if (!customer) return;
+
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4>Personal Information</h4>
+                        <p><strong>Name:</strong> ${customer.name}</p>
+                        <p><strong>Account Number:</strong> ${customer.accountNumber}</p>
+                        <p><strong>Serial Number:</strong> ${customer.serialNumber}</p>
+                        <p><strong>Email:</strong> ${customer.email}</p>
+                        <p><strong>Phone:</strong> ${customer.phone}</p>
+                        <p><strong>Date of Birth:</strong> ${formatDate(customer.dob)}</p>
+                        <p><strong>Gender:</strong> ${customer.gender}</p>
+                    </div>
+                    <div>
+                        <h4>Account Information</h4>
+                        <p><strong>NIN:</strong> ${customer.nin}</p>
+                        <p><strong>BVN:</strong> ${customer.bvn}</p>
+                        <p><strong>Financial Status:</strong> ${customer.financial}</p>
+                        <p><strong>Address:</strong> ${customer.address}</p>
+                        <p><strong>Status:</strong> <span class="badge ${customer.status}">${customer.status}</span></p>
+                        <p><strong>KYC Verified:</strong> ${customer.kycVerified ? 'Yes' : 'No'}</p>

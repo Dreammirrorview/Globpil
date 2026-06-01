@@ -1,0 +1,21 @@
+total 24
+drwxr-xr-x 4 root root  4096 Jun  1 03:23 .
+drwxr-xr-x 8 user user 12288 Jun  1 03:33 ..
+drwxr-xr-x 3 root root  4096 Jun  1 03:27 backend
+drwxr-xr-x 2 root root  4096 Jun  1 03:32 frontend
+---
+total 196
+drwxr-xr-x 2 root root  4096 Jun  1 03:32 .
+drwxr-xr-x 4 root root  4096 Jun  1 03:23 ..
+-rw-r--r-- 1 root root 92857 Jun  1 03:32 index.html
+-rw-r--r-- 1 root root 95048 Jun  1 03:27 index.html.bak
+---
+total 92
+drwxr-xr-x  3 root root  4096 Jun  1 03:27 .
+drwxr-xr-x  4 root root  4096 Jun  1 03:23 ..
+drwxr-xr-x 74 root root  4096 Jun  1 03:27 node_modules
+-rw-r--r--  1 root root 31298 Jun  1 03:27 package-lock.json
+-rw-r--r--  1 root root   365 Jun  1 03:23 package.json
+-rw-r--r--  1 root root 43252 Jun  1 03:27 server.js
+---
+-rw-r--r-- 1 root root 165062 Jun  1 03:22 /workspace/IMG_20251020_081844.jpg
