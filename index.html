@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Pilgrim Bank Nigeria - Digital Banking Ecosystem</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(90deg, #0f3460 0%, #1a1a2e 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #e94560;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            color: #e94560;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .logo p {
+            font-size: 12px;
+            color: #fff;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.primary {
+            background: #e94560;
+            color: #fff;
+        }
+
+        .nav-btn.secondary {
+            background: #0f3460;
+            color: #fff;
+            border: 1px solid #e94560;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(233,69,96,0.3);
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Login Page */
+        .login-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+            color: #e94560;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #0f3460;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #e94560;
+            box-shadow: 0 0 10px rgba(233,69,96,0.3);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #e94560 0%, #ff6b6b 100%);
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233,69,96,0.4);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .forgot-password a {
+            color: #e94560;
+            text-decoration: none;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+            min-height: calc(100vh - 150px);
+        }
+
+        .sidebar {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 12px 15px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: #e94560;
+            transform: translateX(5px);
+        }
+
+        .main-content {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+            max-height: calc(100vh - 150px);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card h3 {
+            color: #e94560;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        /* Balance Cards */
+        .balance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .balance-card {
+            background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #e94560;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .balance-card h4 {
+            color: #fff;
+            font-size: 14px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .balance-card .amount {
+            color: #e94560;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .balance-card .currency {
+            color: #fff;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        th {
+            background: rgba(233,69,96,0.2);
+            color: #e94560;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* Status Badges */
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge.success, .badge.completed, .badge.active, .badge.sent {
+            background: #27ae60;
+            color: #fff;
+        }
+
+        .badge.pending {
+            background: #f39c12;
+            color: #fff;
+        }
+
+        .badge.failed, .badge.suspended {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        /* Terminal */
+        .terminal {
+            background: #000;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            color: #0f0;
+            height: 300px;
+            overflow-y: auto;
+            border: 2px solid #e94560;
+            margin-top: 20px;
+        }
+
+        .terminal-line {
+            margin-bottom: 5px;
+        }
+
+        .terminal-line.error {
+            color: #e74c3c;
+        }
+
+        .terminal-line.warning {
+            color: #f39c12;
+        }
+
+        .terminal-line.success {
+            color: #27ae60;
+        }
+
+        /* Flow Visualization */
+        .flow-visualization {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flow-step {
+            background: rgba(233,69,96,0.2);
+            border: 2px solid #e94560;
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 180px;
+        }
+
+        .flow-step .step-number {
+            font-size: 24px;
+            color: #e94560;
+            font-weight: bold;
+        }
+
+        .flow-step .step-title {
+            font-size: 14px;
+            color: #fff;
+            margin-top: 5px;
+        }
+
+        .flow-arrow {
+            font-size: 24px;
+            color: #e94560;
+        }
+
+        /* Transaction Flow Log */
+        .flow-log {
+            background: #000;
+            border: 2px solid #e94560;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+        }
+
+        .flow-log-entry {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .flow-log-entry .step-name {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .flow-log-entry.started .step-name { color: #f39c12; }
+        .flow-log-entry.completed .step-name { color: #27ae60; }
+        .flow-log-entry.failed .step-name { color: #e74c3c; }
+
+        .flow-log-entry .step-details {
+            font-size: 12px;
+            color: #0f0;
+            margin-top: 5px;
+        }
+
+        /* Alert Display */
+        .alert-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .alert-card.debit {
+            border-left: 4px solid #e74c3c;
+        }
+
+        .alert-card.credit {
+            border-left: 4px solid #27ae60;
+        }
+
+        .alert-card.welcome {
+            border-left: 4px solid #3498db;
+        }
+
+        .alert-card h4 {
+            color: #e94560;
+            margin-bottom: 10px;
+        }
+
+        .alert-card .sms-preview {
+            background: #27ae60;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .alert-card .sms-preview::before {
+            content: '📱 SMS';
+            position: absolute;
+            top: -8px;
+            left: 10px;
+            background: #27ae60;
+            padding: 0 5px;
+            font-size: 11px;
+            border-radius: 3px;
+        }
+
+        .alert-card .email-preview {
+            background: #3498db;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+            white-space: pre-line;
+            position: relative;
+        }
+
+        .alert-card .email-preview::before {
+            content: '📧 Email';
+            position: absolute;
+            top: -8px;
+            left: 10px;
+            background: #3498db;
+            padding: 0 5px;
+            font-size: 11px;
+            border-radius: 3px;
+            color: #fff;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 2px solid #e94560;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            color: #e94560;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Alert */
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert.active {
+            display: block;
+        }
+
+        .alert.success {
+            background: #27ae60;
+            color: #fff;
+        }
+
+        .alert.error {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .alert.warning {
+            background: #f39c12;
+            color: #fff;
+        }
+
+        /* Loading */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-box {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid #e94560;
+            text-align: center;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255,255,255,0.1);
+            border-top: 4px solid #e94560;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .flow-visualization {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        /* Owner Signature */
+        .owner-signature {
+            text-align: center;
+            padding: 20px;
+            background: rgba(233,69,96,0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .owner-signature h4 {
+            color: #e94560;
+            margin-bottom: 10px;
+        }
+
+        .owner-signature p {
+            color: #fff;
+            opacity: 0.8;
+        }
+
+        /* Credentials Card */
+        .credentials-card {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .credentials-card h3 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .credentials-card .cred-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .credentials-card .cred-item:last-child {
+            border-bottom: none;
+        }
+
+        .credentials-card .cred-label {
+            font-weight: bold;
+        }
+
+        .credentials-card .cred-value {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-box">
+            <div class="spinner"></div>
+            <p id="loading-message">Processing transaction...</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <img src="IMG_20251020_081844.jpg" alt="Olawale Abdul-ganiyu Adeshina">
+                <div>
+                    <h1>Global Pilgrim Bank Nigeria</h1>
+                    <p>Hope Like We Make Future | Mother Bank</p>
+                    <p>Owner: Olawale Abdul-ganiyu Adeshina</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn primary" onclick="showPage('login')">Login</button>
+                <button class="nav-btn secondary" onclick="showPage('admin-login')">Admin</button>
+            </div>
+        </div>
+
+        <!-- Login Page -->
+        <div id="login-page" class="page active">
+            <div class="login-container">
+                <div class="login-header">
+                    <h2>Customer Login</h2>
+                    <p>Global Pilgrim Bank Nigeria</p>
+                </div>
+                <div class="alert" id="login-alert"></div>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label>Account Number</label>
+                        <input type="text" id="login-account" placeholder="Enter 10-digit account number" maxlength="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label>PIN</label>
+                        <input type="password" id="login-pin" placeholder="Enter your PIN" maxlength="6" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Login</button>
+                </form>
+                <div class="forgot-password">
+                    <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                </div>
+                <div style="margin-top: 20px; text-align: center;">
+                    <p style="color: #e94560; font-weight: bold;">Test Account:</p>
+                    <p>Account: <code>1234567890</code> | PIN: <code>654321</code></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Login Page -->
+        <div id="admin-login-page" class="page">
+            <div class="login-container">
+                <div class="login-header">
+                    <h2>Admin Login</h2>
+                    <p>Global Pilgrim Bank Nigeria - Administrator</p>
+                </div>
+                <div class="alert" id="admin-login-alert"></div>
+                <form id="admin-login-form">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="admin-username" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="admin-password" placeholder="Enter password" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Admin Login</button>
+                </form>
+                <div class="forgot-password">
+                    <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                </div>
+                <div style="margin-top: 20px; text-align: center;">
+                    <p style="color: #e94560; font-weight: bold;">Admin Credentials:</p>
+                    <p>Username: <code>olawale</code> | Password: <code>pilgrimolawale</code></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Dashboard -->
+        <div id="customer-dashboard" class="page">
+            <div class="dashboard">
+                <div class="sidebar">
+                    <ul class="sidebar-menu">
+                        <li><a href="#" class="active" onclick="showSection('customer-overview')">Overview</a></li>
+                        <li><a href="#" onclick="showSection('customer-transfer')">Transfer</a></li>
+                        <li><a href="#" onclick="showSection('customer-flow')">Transaction Flow</a></li>
+                        <li><a href="#" onclick="showSection('customer-alerts')">Alerts</a></li>
+                        <li><a href="#" onclick="showSection('customer-history')">Transaction History</a></li>
+                        <li><a href="#" onclick="showSection('customer-ledger')">My Ledger</a></li>
+                        <li><a href="#" onclick="showSection('customer-profile')">Profile</a></li>
+                        <li><a href="#" onclick="logout()">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="main-content">
+                    <!-- Overview Section -->
+                    <div id="customer-overview" class="content-section active">
+                        <h2>Account Overview</h2>
+                        <div class="balance-grid" id="customer-balance-grid"></div>
+                        <div class="card">
+                            <h3>Recent Transactions</h3>
+                            <div class="table-container">
+                                <table id="customer-recent-transactions">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transfer Section -->
+                    <div id="customer-transfer" class="content-section">
+                        <h2>Transfer Funds</h2>
+                        <div class="flow-visualization">
+                            <div class="flow-step">
+                                <div class="step-number">1</div>
+                                <div class="step-title">Wallet Debit</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">2</div>
+                                <div class="step-title">Payment API</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">3</div>
+                                <div class="step-title">Ledger Update</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">4</div>
+                                <div class="step-title">SMS/Email Alert</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>Local Transfer</h3>
+                            <div class="alert" id="transfer-alert"></div>
+                            <form id="local-transfer-form">
+                                <div class="form-group">
+                                    <label>Select Bank</label>
+                                    <select id="transfer-bank" required>
+                                        <option value="">Select Bank</option>
+                                        <option value="044">Access Bank</option>
+                                        <option value="058">GTBank</option>
+                                        <option value="011">First Bank</option>
+                                        <option value="033">UBA</option>
+                                        <option value="070">Fidelity Bank</option>
+                                        <option value="057">Zenith Bank</option>
+                                        <option value="050">Ecobank</option>
+                                        <option value="084">Keystone Bank</option>
+                                        <option value="221">Stanbic IBTC</option>
+                                        <option value="999">Global Pilgrim Bank</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Account Number</label>
+                                    <input type="text" id="transfer-account" placeholder="Enter 10-digit account number" maxlength="10" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Account Name</label>
+                                    <input type="text" id="transfer-name" placeholder="Account name will appear here" readonly style="background: rgba(233,69,96,0.1);">
+                                </div>
+                                <div class="form-group">
+                                    <label>Amount (NGN)</label>
+                                    <input type="number" id="transfer-amount" placeholder="Enter amount" min="1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Narration</label>
+                                    <input type="text" id="transfer-narration" placeholder="Enter narration">
+                                </div>
+                                <button type="submit" class="btn-submit" id="transfer-btn">Send Money</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Transaction Flow Section -->
+                    <div id="customer-flow" class="content-section">
+                        <h2>Transaction Flow Verification</h2>
+                        <div class="flow-visualization">
+                            <div class="flow-step">
+                                <div class="step-number">1</div>
+                                <div class="step-title">Wallet Debit</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">2</div>
+                                <div class="step-title">Payment API</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">3</div>
+                                <div class="step-title">Ledger Update</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">4</div>
+                                <div class="step-title">SMS/Email Alert</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>Last Transaction Flow Log</h3>
+                            <div id="flow-log-container" class="flow-log">
+                                <p style="color: #0f0;">No transaction flow recorded yet. Make a transfer to see the full flow.</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>System Verification</h3>
+                            <button class="btn-submit" onclick="verifyFlow()" style="margin-bottom:15px;">Run Flow Verification</button>
+                            <div id="verification-result"></div>
+                        </div>
+                    </div>
+
+                    <!-- Alerts Section -->
+                    <div id="customer-alerts" class="content-section">
+                        <h2>SMS/Email Alerts</h2>
+                        <div id="customer-alerts-list"></div>
+                    </div>
+
+                    <!-- Transaction History -->
+                    <div id="customer-history" class="content-section">
+                        <h2>Transaction History</h2>
+                        <div class="card">
+                            <div class="table-container">
+                                <table id="customer-full-history">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Reference</th>
+                                            <th>Type</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ledger Section -->
+                    <div id="customer-ledger" class="content-section">
+                        <h2>My Ledger</h2>
+                        <div class="card">
+                            <h3>Double-Entry Ledger Records</h3>
+                            <div id="customer-ledger-list"></div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Section -->
+                    <div id="customer-profile" class="content-section">
+                        <h2>My Profile</h2>
+                        <div class="card" id="customer-profile-details"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="admin-dashboard" class="page">
+            <div class="dashboard">
+                <div class="sidebar">
+                    <ul class="sidebar-menu">
+                        <li><a href="#" class="active" onclick="showAdminSection('admin-overview')">Overview</a></li>
+                        <li><a href="#" onclick="showAdminSection('admin-customers')">Customers</a></li>
+                        <li><a href="#" onclick="showAdminSection('admin-create-customer')">Create Customer</a></li>
+                        <li><a href="#" onclick="showAdminSection('admin-transactions')">Transactions</a></li>
+                        <li><a href="#" onclick="showAdminSection('admin-ledger')">Ledger</a></li>
+                        <li><a href="#" onclick="showAdminSection('admin-alerts')">Alerts</a></li>
+                        <li><a href="#" onclick="showAdminSection('admin-flow')">Flow Verify</a></li>
+                        <li><a href="#" onclick="showAdminSection('admin-credit-debit')">Credit/Debit</a></li>
+                        <li><a href="#" onclick="showAdminSection('admin-settings')">Settings</a></li>
+                        <li><a href="#" onclick="logout()">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="main-content">
+                    <!-- Admin Overview -->
+                    <div id="admin-overview" class="content-section active">
+                        <h2>Admin Overview</h2>
+                        <div class="flow-visualization" style="margin-bottom:20px;">
+                            <div class="flow-step">
+                                <div class="step-number">1</div>
+                                <div class="step-title">Wallet Debit</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">2</div>
+                                <div class="step-title">Payment API</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">3</div>
+                                <div class="step-title">Ledger Update</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">4</div>
+                                <div class="step-title">SMS/Email Alert</div>
+                            </div>
+                        </div>
+                        <div class="balance-grid" id="admin-stats"></div>
+                        <div class="card">
+                            <h3>System Status</h3>
+                            <div class="terminal" id="system-terminal"></div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Customers -->
+                    <div id="admin-customers" class="content-section">
+                        <h2>Customer Management</h2>
+                        <div class="card">
+                            <div class="form-group">
+                                <input type="text" id="search-customer" placeholder="Search by account number or name" onkeyup="searchCustomers()">
+                            </div>
+                            <div class="table-container">
+                                <table id="customers-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Account No</th>
+                                            <th>Serial No</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>PIN</th>
+                                            <th>Balance (NGN)</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Create Customer -->
+                    <div id="admin-create-customer" class="content-section">
+                        <h2>Create New Customer Account</h2>
+                        <div class="alert" id="create-alert"></div>
+                        <div class="card">
+                            <form id="create-customer-form">
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" id="customer-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date of Birth</label>
+                                    <input type="date" id="customer-dob" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <select id="customer-gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" id="customer-email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" id="customer-phone" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>NIN</label>
+                                    <input type="text" id="customer-nin" maxlength="11" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>BVN</label>
+                                    <input type="text" id="customer-bvn" maxlength="11" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" id="customer-address" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Financial Status</label>
+                                    <select id="customer-financial" required>
+                                        <option value="">Select Status</option>
+                                        <option value="employed">Employed</option>
+                                        <option value="self-employed">Self-Employed</option>
+                                        <option value="business">Business Owner</option>
+                                        <option value="investor">Investor</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Initial Deposit (NGN)</label>
+                                    <input type="number" id="customer-deposit" min="0" value="0">
+                                </div>
+                                <button type="submit" class="btn-submit">Create Account</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Admin Transactions -->
+                    <div id="admin-transactions" class="content-section">
+                        <h2>Transaction Management</h2>
+                        <div class="card">
+                            <div class="table-container">
+                                <table id="admin-transactions-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Reference</th>
+                                            <th>Date</th>
+                                            <th>From</th>
+                                            <th>To</th>
+                                            <th>Amount</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Ledger -->
+                    <div id="admin-ledger" class="content-section">
+                        <h2>Ledger Records</h2>
+                        <div class="card">
+                            <h3>Double-Entry Ledger</h3>
+                            <div id="admin-ledger-list"></div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Alerts -->
+                    <div id="admin-alerts" class="content-section">
+                        <h2>All SMS/Email Alerts</h2>
+                        <div id="admin-alerts-list"></div>
+                    </div>
+
+                    <!-- Admin Flow Verify -->
+                    <div id="admin-flow" class="content-section">
+                        <h2>Transaction Flow Verification</h2>
+                        <div class="flow-visualization" style="margin-bottom:20px;">
+                            <div class="flow-step">
+                                <div class="step-number">1</div>
+                                <div class="step-title">Wallet Debit</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">2</div>
+                                <div class="step-title">Payment API</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">3</div>
+                                <div class="step-title">Ledger Update</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-number">4</div>
+                                <div class="step-title">SMS/Email Alert</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <button class="btn-submit" onclick="verifyFlow()" style="margin-bottom:15px;">Run Full Flow Verification</button>
+                            <div id="admin-verification-result"></div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Credit/Debit -->
+                    <div id="admin-credit-debit" class="content-section">
+                        <h2>Credit / Debit Account</h2>
+                        <div class="card">
+                            <h3>Credit Account</h3>
+                            <form id="credit-form">
+                                <div class="form-group">
+                                    <label>Account Number</label>
+                                    <input type="text" id="credit-account" placeholder="Enter account number" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Amount</label>
+                                    <input type="number" id="credit-amount" placeholder="Enter amount" min="1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Currency</label>
+                                    <select id="credit-currency">
+                                        <option value="NGN">NGN</option>
+                                        <option value="USD">USD</option>
+                                        <option value="EUR">EUR</option>
+                                        <option value="GBP">GBP</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Narration</label>
+                                    <input type="text" id="credit-narration" placeholder="Enter narration">
+                                </div>
+                                <button type="submit" class="btn-submit" style="background: linear-gradient(90deg, #27ae60, #2ecc71);">Credit Account</button>
+                            </form>
+                        </div>
+                        <div class="card">
+                            <h3>Debit Account</h3>
+                            <form id="debit-form">
+                                <div class="form-group">
+                                    <label>Account Number</label>
+                                    <input type="text" id="debit-account" placeholder="Enter account number" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Amount</label>
+                                    <input type="number" id="debit-amount" placeholder="Enter amount" min="1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Currency</label>
+                                    <select id="debit-currency">
+                                        <option value="NGN">NGN</option>
+                                        <option value="USD">USD</option>
+                                        <option value="EUR">EUR</option>
+                                        <option value="GBP">GBP</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Narration</label>
+                                    <input type="text" id="debit-narration" placeholder="Enter narration">
+                                </div>
+                                <button type="submit" class="btn-submit">Debit Account</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Admin Settings -->
+                    <div id="admin-settings" class="content-section">
+                        <h2>System Settings</h2>
+                        <div class="card">
+                            <h3>Bank Information</h3>
+                            <div class="form-group">
+                                <label>Bank Name</label>
+                                <input type="text" value="Global Pilgrim Bank Nigeria" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Bank Code</label>
+                                <input type="text" value="999" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>SWIFT/BIC Code</label>
+                                <input type="text" value="GPBINGLA" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>NIBSS Code</label>
+                                <input type="text" value="999001" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>CBN License Number</label>
+                                <input type="text" value="CBN/BNK/2024/999" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Owner</label>
+                                <input type="text" value="Olawale Abdul-ganiyu Adeshina" readonly>
+                            </div>
+                            <div class="owner-signature">
+                                <h4>Owner Details</h4>
+                                <p>Name: Olawale Abdul-ganiyu Adeshina</p>
+                                <p>Age: 40</p>
+                                <p>Gender: Male</p>
+                                <p>Status: Single</p>
+                                <p>Location: Ogun State, Nigeria</p>
+                                <p>Office: Lagos, Nigeria</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title">Modal Title</h3>
+                    <button class="close-modal" onclick="closeModal()">&times;</button>
+                </div>
+                <div id="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================================
+        // GLOBAL PILGRIM BANK NIGERIA - FULL STACK FRONTEND
+        // Transaction Flow: Wallet Debit → Payment API → Ledger Update → SMS/Email Alert
+        // ============================================================================
+
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'https://globalpilgrim-01ac8.app.super.myninja.ai/api'
+            : 'http://' + window.location.hostname + ':3001/api';
+
+        let currentUser = null;
+        let isAdmin = false;
+        let lastFlowLog = null;
+
+        // ============================================================================
+        // PAGE & SECTION NAVIGATION
+        // ============================================================================
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId + '-page').classList.add('active');
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            
+            document.querySelectorAll('#customer-dashboard .sidebar-menu a').forEach(link => link.classList.remove('active'));
+            if (event && event.target) event.target.classList.add('active');
+
+            // Load section data
+            if (sectionId === 'customer-overview') loadCustomerDashboard();
+            if (sectionId === 'customer-alerts') loadCustomerAlerts();
+            if (sectionId === 'customer-history') loadCustomerHistory();
+            if (sectionId === 'customer-ledger') loadCustomerLedger();
+            if (sectionId === 'customer-flow') renderFlowLog();
+        }
+
+        function showAdminSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            
+            document.querySelectorAll('#admin-dashboard .sidebar-menu a').forEach(link => link.classList.remove('active'));
+            if (event && event.target) event.target.classList.add('active');
+
+            if (sectionId === 'admin-overview') loadAdminOverview();
+            if (sectionId === 'admin-customers') loadCustomers();
+            if (sectionId === 'admin-transactions') loadAdminTransactions();
+            if (sectionId === 'admin-ledger') loadAdminLedger();
+            if (sectionId === 'admin-alerts') loadAdminAlerts();
+        }
+
+        // ============================================================================
+        // AUTHENTICATION
+        // ============================================================================
+
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const accountNumber = document.getElementById('login-account').value;
+            const pin = document.getElementById('login-pin').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/customer/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ accountNumber, pin })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentUser = data.customer;
+                    isAdmin = false;
+                    showPage('customer-dashboard');
+                    loadCustomerDashboard();
+                    addTerminalLog(`Customer login: ${accountNumber}`, 'success');
+                } else {
+                    showAlertInline('login-alert', data.error, 'error');
+                    addTerminalLog(`Failed login: ${accountNumber}`, 'error');
+                }
+            } catch (err) {
+                showAlertInline('login-alert', 'Connection error. Please try again.', 'error');
+                console.error(err);
+            }
+        });
+
+        document.getElementById('admin-login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('admin-username').value;
+            const password = document.getElementById('admin-password').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/admin/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentUser = data.admin;
+                    isAdmin = true;
+                    showPage('admin-dashboard');
+                    loadAdminOverview();
+                    addTerminalLog('Admin login successful', 'success');
+                } else {
+                    showAlertInline('admin-login-alert', data.error, 'error');
+                    addTerminalLog('Failed admin login', 'error');
+                }
+            } catch (err) {
+                showAlertInline('admin-login-alert', 'Connection error. Please try again.', 'error');
+                console.error(err);
+            }
+        });
+
+        // ============================================================================
+        // CUSTOMER DASHBOARD
+        // ============================================================================
+
+        async function loadCustomerDashboard() {
+            if (!currentUser) return;
+
+            try {
+                const response = await fetch(`${API_BASE}/customer/${currentUser.accountNumber}`);
+                const data = await response.json();
+                if (data.success) {
+                    currentUser = data.customer;
+                }
+            } catch (err) {
+                console.error(err);
+            }
+
+            // Load balances
+            const balanceGrid = document.getElementById('customer-balance-grid');
+            balanceGrid.innerHTML = `
+                <div class="balance-card">
+                    <h4>Naira Balance</h4>
+                    <div class="amount">₦${formatNumber(currentUser.balance.NGN || 0)}</div>
+                    <div class="currency">NGN</div>
+                </div>
+                <div class="balance-card">
+                    <h4>US Dollar</h4>
+                    <div class="amount">$${formatNumber(currentUser.balance.USD || 0)}</div>
+                    <div class="currency">USD</div>
+                </div>
+                <div class="balance-card">
+                    <h4>Euro</h4>
+                    <div class="amount">€${formatNumber(currentUser.balance.EUR || 0)}</div>
+                    <div class="currency">EUR</div>
+                </div>
+                <div class="balance-card">
+                    <h4>British Pound</h4>
+                    <div class="amount">£${formatNumber(currentUser.balance.GBP || 0)}</div>
+                    <div class="currency">GBP</div>
+                </div>
+            `;
+
+            loadCustomerRecentTransactions();
+            loadCustomerProfile();
+        }
+
+        async function loadCustomerRecentTransactions() {
+            try {
+                const response = await fetch(`${API_BASE}/customer/${currentUser.accountNumber}/transactions`);
+                const data = await response.json();
+                if (data.success) {
+                    const tbody = document.querySelector('#customer-recent-transactions tbody');
+                    tbody.innerHTML = data.transactions.slice(0, 10).map(t => `
+                        <tr>
+                            <td>${formatDate(t.date)}</td>
+                            <td>${t.type || t.narration || 'Transfer'}</td>
+                            <td>${t.narration || t.description || '-'}</td>
+                            <td>${t.from === currentUser.accountNumber ? '-' : '+'}${t.currency} ${formatNumber(t.amount)}</td>
+                            <td><span class="badge ${t.status}">${t.status}</span></td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        async function loadCustomerHistory() {
+            try {
+                const response = await fetch(`${API_BASE}/customer/${currentUser.accountNumber}/transactions`);
+                const data = await response.json();
+                if (data.success) {
+                    const tbody = document.querySelector('#customer-full-history tbody');
+                    tbody.innerHTML = data.transactions.map(t => `
+                        <tr>
+                            <td>${formatDate(t.date)}</td>
+                            <td>${t.reference}</td>
+                            <td>${t.type || 'Transfer'}</td>
+                            <td>${t.from === currentUser.accountNumber ? '-' : '+'}${t.currency} ${formatNumber(t.amount)}</td>
+                            <td><span class="badge ${t.status}">${t.status}</span></td>
+                        </tr>
+                    `).join('') || '<tr><td colspan="5">No transactions yet</td></tr>';
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        async function loadCustomerAlerts() {
+            try {
+                const response = await fetch(`${API_BASE}/customer/${currentUser.accountNumber}/alerts`);
+                const data = await response.json();
+                if (data.success) {
+                    const container = document.getElementById('customer-alerts-list');
+                    if (data.alerts.length === 0) {
+                        container.innerHTML = '<div class="card"><p>No alerts yet. Make a transaction to see SMS/Email alerts.</p></div>';
+                        return;
+                    }
+                    container.innerHTML = data.alerts.map(a => `
+                        <div class="alert-card ${a.type}">
+                            <h4>${a.type === 'debit' ? '🔴 Debit Alert' : a.type === 'credit' ? '🟢 Credit Alert' : '🔵 Welcome Alert'}</h4>
+                            <p><strong>Date:</strong> ${formatDate(a.date)} | <strong>Ref:</strong> ${a.reference}</p>
+                            <div class="sms-preview">${a.sms.message}</div>
+                            <div class="email-preview"><strong>Subject:</strong> ${a.email.subject}\n\n${a.email.body}</div>
+                        </div>
+                    `).join('');
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        async function loadCustomerLedger() {
+            try {
+                const response = await fetch(`${API_BASE}/customer/${currentUser.accountNumber}/ledger`);
+                const data = await response.json();
+                if (data.success) {
+                    const container = document.getElementById('customer-ledger-list');
+                    if (data.ledger.length === 0) {
+                        container.innerHTML = '<p>No ledger entries yet.</p>';
+                        return;
+                    }
+                    container.innerHTML = data.ledger.map(l => `
+                        <div style="background:rgba(255,255,255,0.05);padding:15px;border-radius:10px;margin-bottom:15px;border:1px solid rgba(255,255,255,0.1);">
+                            <h4 style="color:#e94560;">Reference: ${l.reference}</h4>
+                            <p style="color:#f39c12;">Date: ${formatDate(l.date)} | Type: ${l.type}</p>
+                            <table style="margin-top:10px;">
+                                <thead>
+                                    <tr><th>Account</th><th>Entry</th><th>Amount</th><th>Prev Bal</th><th>New Bal</th></tr>
+                                </thead>
+                                <tbody>
+                                    ${l.entries.map(e => `
+                                        <tr>
+                                            <td>${e.account}</td>
+                                            <td><span class="badge ${e.entryType === 'DEBIT' ? 'failed' : 'success'}">${e.entryType}</span></td>
+                                            <td>${e.currency} ${formatNumber(e.amount)}</td>
+                                            <td>${formatNumber(e.previousBalance || 0)}</td>
+                                            <td>${formatNumber(e.newBalance || 0)}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    `).join('');
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        function loadCustomerProfile() {
+            if (!currentUser) return;
+            const container = document.getElementById('customer-profile-details');
+            container.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4>Personal Information</h4>
+                        <p><strong>Name:</strong> ${currentUser.name}</p>
+                        <p><strong>Account Number:</strong> ${currentUser.accountNumber}</p>
+                        <p><strong>Serial Number:</strong> ${currentUser.serialNumber}</p>
+                        <p><strong>Email:</strong> ${currentUser.email}</p>
+                        <p><strong>Phone:</strong> ${currentUser.phone}</p>
+                        <p><strong>Gender:</strong> ${currentUser.gender}</p>
+                    </div>
+                    <div>
+                        <h4>Account Information</h4>
+                        <p><strong>NIN:</strong> ${currentUser.nin}</p>
+                        <p><strong>BVN:</strong> ${currentUser.bvn}</p>
+                        <p><strong>Address:</strong> ${currentUser.address}</p>
+                        <p><strong>Status:</strong> <span class="badge ${currentUser.status}">${currentUser.status}</span></p>
+                        <p><strong>KYC Verified:</strong> ${currentUser.kycVerified ? 'Yes' : 'No'}</p>
+                        <p><strong>Registered:</strong> ${formatDate(currentUser.createdAt)}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============================================================================
+        // TRANSFER - FULL FLOW
+        // ============================================================================
+
+        // Account name lookup
+        document.getElementById('transfer-account').addEventListener('input', async function() {
+            const accountNumber = this.value;
+            const bankCode = document.getElementById('transfer-bank').value;
+
+            if (bankCode === '999' && accountNumber.length === 10) {
+                try {
+                    const response = await fetch(`${API_BASE}/lookup/${accountNumber}`);
+                    const data = await response.json();
+                    document.getElementById('transfer-name').value = data.success ? data.name : 'Account not found';
+                } catch (err) {
+                    document.getElementById('transfer-name').value = 'Lookup error';
+                }
+            } else {
+                document.getElementById('transfer-name').value = '';
+            }
+        });
+
+        // Transfer form handler
+        document.getElementById('local-transfer-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const bankCode = document.getElementById('transfer-bank').value;
+            const recipientAccount = document.getElementById('transfer-account').value;
+            const amount = parseFloat(document.getElementById('transfer-amount').value);
+            const narration = document.getElementById('transfer-narration').value;
+
+            if (!bankCode || !recipientAccount || !amount) {
+                showAlertInline('transfer-alert', 'Please fill all required fields', 'error');
+                return;
+            }
+
+            // Show loading
+            showLoading('Processing transaction...\n\n1. Wallet Debit\n2. Payment API\n3. Ledger Update\n4. SMS/Email Alert');
+
+            try {
+                const response = await fetch(`${API_BASE}/transfer`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        senderAccount: currentUser.accountNumber,
+                        recipientAccount: recipientAccount,
+                        amount: amount,
+                        currency: 'NGN',
+                        bankCode: bankCode,
+                        narration: narration || 'Transfer'
+                    })
+                });
+
+                const data = await response.json();
+                hideLoading();
+
+                if (data.success) {
+                    lastFlowLog = data.flowLog;
+                    showAlertInline('transfer-alert', `Transfer successful! Reference: ${data.reference}`, 'success');
+                    
+                    // Show flow log modal
+                    showFlowResultModal(data);
+                    
+                    // Refresh dashboard
+                    await loadCustomerDashboard();
+                    
+                    // Reset form
+                    this.reset();
+                    document.getElementById('transfer-name').value = '';
+                } else {
+                    lastFlowLog = data.flowLog || [];
+                    let errorMsg = data.error || 'Transfer failed';
+                    if (data.failedAt) {
+                        errorMsg = `Failed at step: ${data.failedAt}. ${data.error?.error || ''}`;
+                    }
+                    showAlertInline('transfer-alert', errorMsg, 'error');
+                    showFlowResultModal(data);
+                }
+            } catch (err) {
+                hideLoading();
+                showAlertInline('transfer-alert', 'Connection error. Please try again.', 'error');
+                console.error(err);
+            }
+        });
+
+        function showFlowResultModal(data) {
+            const modalBody = document.getElementById('modal-body');
+            const modalTitle = document.getElementById('modal-title');
+            
+            modalTitle.textContent = data.success ? '✅ Transaction Completed' : '❌ Transaction Failed';
+            
+            let html = '<div style="margin-bottom:15px;">';
+            
+            if (data.flowLog) {
+                html += '<h4 style="color:#e94560;margin-bottom:10px;">Transaction Flow Log:</h4>';
+                data.flowLog.forEach(entry => {
+                    const statusClass = entry.status === 'COMPLETED' ? 'color:#27ae60' : 
+                                       entry.status === 'FAILED' ? 'color:#e74c3c' : 'color:#f39c12';
+                    const icon = entry.status === 'COMPLETED' ? '✓' : 
+                                entry.status === 'FAILED' ? '✗' : '⏳';
+                    html += `<div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                        <span style="${statusClass};font-weight:bold;">${icon} ${entry.step}</span>
+                        <span style="color:#888;margin-left:10px;">${entry.status}</span>
+                    </div>`;
+                });
+            }
+            
+            if (data.summary) {
+                html += `<div style="margin-top:15px;background:rgba(39,174,96,0.1);padding:15px;border-radius:10px;">
+                    <h4 style="color:#27ae60;">Transaction Summary</h4>
+                    <p>From: ${data.summary.sender} (${data.summary.senderAccount})</p>
+                    <p>To: ${data.summary.recipient} (${data.summary.recipientAccount})</p>
+                    <p>Amount: ${data.summary.currency} ${formatNumber(data.summary.amount)}</p>
+                    <p>New Balance: ${data.summary.currency} ${formatNumber(data.summary.newSenderBalance)}</p>
+                    <p>Reference: ${data.summary.reference}</p>
+                </div>`;
+            }
+            
+            if (data.alerts && data.alerts.length > 0) {
+                html += '<h4 style="color:#e94560;margin-top:15px;">Generated Alerts:</h4>';
+                data.alerts.forEach(alert => {
+                    html += `<div class="alert-card ${alert.type}" style="margin-top:10px;">
+                        <p><strong>${alert.type === 'debit' ? '🔴 Debit' : '🟢 Credit'} Alert</strong></p>
+                        <div class="sms-preview">${alert.sms.message}</div>
+                    </div>`;
+                });
+            }
+            
+            html += '</div>';
+            modalBody.innerHTML = html;
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function renderFlowLog() {
+            const container = document.getElementById('flow-log-container');
+            if (!lastFlowLog || lastFlowLog.length === 0) {
+                container.innerHTML = '<p style="color: #0f0;">No transaction flow recorded yet. Make a transfer to see the full flow.</p>';
+                return;
+            }
+            
+            let html = '';
+            lastFlowLog.forEach(entry => {
+                const cssClass = entry.status === 'COMPLETED' ? 'completed' : 
+                                entry.status === 'FAILED' ? 'failed' : 'started';
+                html += `<div class="flow-log-entry ${cssClass}">
+                    <div class="step-name">${entry.step} - ${entry.status}</div>
+                    <div class="step-details">Time: ${new Date(entry.timestamp).toLocaleTimeString()}</div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        // ============================================================================
+        // ADMIN DASHBOARD
+        // ============================================================================
+
+        async function loadAdminOverview() {
+            try {
+                const response = await fetch(`${API_BASE}/admin/overview`);
+                const data = await response.json();
+                if (data.success) {
+                    const stats = data.stats;
+                    const statsGrid = document.getElementById('admin-stats');
+                    statsGrid.innerHTML = `
+                        <div class="balance-card">
+                            <h4>Total Customers</h4>
+                            <div class="amount">${stats.totalCustomers}</div>
+                            <div class="currency">Registered Accounts</div>
+                        </div>
+                        <div class="balance-card">
+                            <h4>Total NGN Balance</h4>
+                            <div class="amount">₦${formatNumber(stats.totalBalanceNGN)}</div>
+                            <div class="currency">Naira</div>
+                        </div>
+                        <div class="balance-card">
+                            <h4>Total USD Balance</h4>
+                            <div class="amount">$${formatNumber(stats.totalBalanceUSD)}</div>
+                            <div class="currency">US Dollars</div>
+                        </div>
+                        <div class="balance-card">
+                            <h4>Completed Transactions</h4>
+                            <div class="amount">${stats.completedTransactions}</div>
+                            <div class="currency">Alerts Sent: ${stats.totalAlertsSent}</div>
+                        </div>
+                    `;
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        async function loadCustomers() {
+            try {
+                const response = await fetch(`${API_BASE}/admin/customers`);
+                const data = await response.json();
+                if (data.success) {
+                    const tbody = document.querySelector('#customers-table tbody');
+                    tbody.innerHTML = data.customers.map(c => `
+                        <tr>
+                            <td>${c.accountNumber}</td>
+                            <td>${c.serialNumber}</td>
+                            <td>${c.name}</td>
+                            <td>${c.email}</td>
+                            <td>${c.phone}</td>
+                            <td style="color:#e94560;font-weight:bold;">-</td>
+                            <td>₦${formatNumber(c.balance.NGN || 0)}</td>
+                            <td><span class="badge ${c.status}">${c.status}</span></td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        async function loadAdminTransactions() {
+            try {
+                const response = await fetch(`${API_BASE}/admin/transactions`);
+                const data = await response.json();
+                if (data.success) {
+                    const tbody = document.querySelector('#admin-transactions-table tbody');
+                    tbody.innerHTML = data.transactions.map(t => `
+                        <tr>
+                            <td>${t.reference}</td>
+                            <td>${formatDate(t.date)}</td>
+                            <td>${t.from}</td>
+                            <td>${t.to}</td>
+                            <td>${t.currency} ${formatNumber(t.amount)}</td>
+                            <td>${t.type}</td>
+                            <td><span class="badge ${t.status}">${t.status}</span></td>
+                        </tr>
+                    `).join('') || '<tr><td colspan="7">No transactions yet</td></tr>';
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        async function loadAdminLedger() {
+            try {
+                const response = await fetch(`${API_BASE}/admin/ledger`);
+                const data = await response.json();
+                if (data.success) {
+                    const container = document.getElementById('admin-ledger-list');
+                    if (data.ledger.length === 0) {
+                        container.innerHTML = '<p>No ledger entries yet.</p>';
+                        return;
+                    }
+                    container.innerHTML = data.ledger.map(l => `
+                        <div style="background:rgba(255,255,255,0.05);padding:15px;border-radius:10px;margin-bottom:15px;border:1px solid rgba(255,255,255,0.1);">
+                            <h4 style="color:#e94560;">Ref: ${l.reference} | ${formatDate(l.date)}</h4>
+                            <table style="margin-top:10px;">
+                                <thead><tr><th>Account</th><th>Entry</th><th>Amount</th><th>Prev Bal</th><th>New Bal</th></tr></thead>
+                                <tbody>
+                                    ${l.entries.map(e => `
+                                        <tr>
+                                            <td>${e.account}</td>
+                                            <td><span class="badge ${e.entryType === 'DEBIT' ? 'failed' : 'success'}">${e.entryType}</span></td>
+                                            <td>${e.currency} ${formatNumber(e.amount)}</td>
+                                            <td>${formatNumber(e.previousBalance || 0)}</td>
+                                            <td>${formatNumber(e.newBalance || 0)}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    `).join('');
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        async function loadAdminAlerts() {
+            try {
+                const response = await fetch(`${API_BASE}/admin/alerts`);
+                const data = await response.json();
+                if (data.success) {
+                    const container = document.getElementById('admin-alerts-list');
+                    if (data.alerts.length === 0) {
+                        container.innerHTML = '<div class="card"><p>No alerts generated yet.</p></div>';
+                        return;
+                    }
+                    container.innerHTML = data.alerts.map(a => `
+                        <div class="alert-card ${a.type}">
+                            <h4>${a.type === 'debit' ? '🔴 Debit' : a.type === 'credit' ? '🟢 Credit' : '🔵 Welcome'} - ${a.customerName}</h4>
+                            <p><strong>Date:</strong> ${formatDate(a.date)} | <strong>Ref:</strong> ${a.reference} | <strong>Acct:</strong> ${a.accountNumber}</p>
+                            <div class="sms-preview">${a.sms.message}</div>
+                            <div class="email-preview"><strong>Subject:</strong> ${a.email.subject}\n\n${a.email.body}</div>
+                        </div>
+                    `).join('');
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        // Create customer form
+        document.getElementById('create-customer-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            try {
+                const response = await fetch(`${API_BASE}/admin/customers`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: document.getElementById('customer-name').value,
+                        dob: document.getElementById('customer-dob').value,
+                        gender: document.getElementById('customer-gender').value,
+                        email: document.getElementById('customer-email').value,
+                        phone: document.getElementById('customer-phone').value,
+                        nin: document.getElementById('customer-nin').value,
+                        bvn: document.getElementById('customer-bvn').value,
+                        address: document.getElementById('customer-address').value,
+                        financial: document.getElementById('customer-financial').value,
+                        initialDeposit: document.getElementById('customer-deposit').value
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    const c = data.customer;
+                    const modalBody = document.getElementById('modal-body');
+                    modalBody.innerHTML = `
+                        <div class="credentials-card">
+                            <h3>✅ Account Created Successfully!</h3>
+                            <div class="cred-item">
+                                <span class="cred-label">Name:</span>
+                                <span class="cred-value">${c.name}</span>
+                            </div>
+                            <div class="cred-item">
+                                <span class="cred-label">Account Number:</span>
+                                <span class="cred-value">${c.accountNumber}</span>
+                            </div>
+                            <div class="cred-item">
+                                <span class="cred-label">Serial Number:</span>
+                                <span class="cred-value">${c.serialNumber}</span>
+                            </div>
+                            <div class="cred-item">
+                                <span class="cred-label">PIN:</span>
+                                <span class="cred-value" style="color:#e94560;font-size:20px;">${c.pin}</span>
+                            </div>
+                            <div class="cred-item">
+                                <span class="cred-label">Initial Deposit:</span>
+                                <span class="cred-value">₦${formatNumber(c.balance.NGN)}</span>
+                            </div>
+                        </div>
+                        <p style="text-align:center;margin-top:15px;">An SMS and Email alert has been sent to the customer with their account details and PIN.</p>
+                    `;
+                    document.getElementById('modal-title').textContent = 'New Customer Account';
+                    document.getElementById('modal').classList.add('active');
+                    
+                    this.reset();
+                    addTerminalLog(`New customer created: ${c.accountNumber} - ${c.name}`, 'success');
+                } else {
+                    showAlertInline('create-alert', data.error, 'error');
+                }
+            } catch (err) {
+                showAlertInline('create-alert', 'Connection error. Please try again.', 'error');
+                console.error(err);
+            }
+        });
+
+        // Credit form
+        document.getElementById('credit-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                const response = await fetch(`${API_BASE}/admin/credit`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        accountNumber: document.getElementById('credit-account').value,
+                        amount: document.getElementById('credit-amount').value,
+                        currency: document.getElementById('credit-currency').value,
+                        narration: document.getElementById('credit-narration').value || 'Admin Credit'
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    alert(`Account credited successfully!\nNew Balance: ${data.transaction.currency} ${formatNumber(data.newBalance)}`);
+                    this.reset();
+                    addTerminalLog(`Admin credit: ${data.transaction.currency} ${formatNumber(data.transaction.amount)} to ${data.transaction.to}`, 'success');
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (err) {
+                alert('Connection error.');
+                console.error(err);
+            }
+        });
+
+        // Debit form
+        document.getElementById('debit-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                const response = await fetch(`${API_BASE}/admin/debit`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        accountNumber: document.getElementById('debit-account').value,
+                        amount: document.getElementById('debit-amount').value,
+                        currency: document.getElementById('debit-currency').value,
+                        narration: document.getElementById('debit-narration').value || 'Admin Debit'
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    alert(`Account debited successfully!\nNew Balance: ${data.transaction.currency} ${formatNumber(data.newBalance)}`);
+                    this.reset();
+                    addTerminalLog(`Admin debit: ${data.transaction.currency} ${formatNumber(data.transaction.amount)} from ${data.transaction.from}`, 'warning');
+                } else {
+                    alert('Error: ' + (data.error || 'Debit failed'));
+                }
+            } catch (err) {
+                alert('Connection error.');
+                console.error(err);
+            }
+        });
+
+        // ============================================================================
+        // FLOW VERIFICATION
+        // ============================================================================
+
+        async function verifyFlow() {
+            try {
+                const response = await fetch(`${API_BASE}/verify-flow`);
+                const data = await response.json();
+                
+                const containerId = isAdmin ? 'admin-verification-result' : 'verification-result';
+                const container = document.getElementById(containerId);
+                
+                if (data.success) {
+                    const allPassed = data.overallStatus.includes('OPERATIONAL');
+                    container.innerHTML = `
+                        <div style="background:${allPassed ? 'rgba(39,174,96,0.2)' : 'rgba(231,76,60,0.2)'};padding:20px;border-radius:10px;border:2px solid ${allPassed ? '#27ae60' : '#e74c3c'};">
+                            <h3 style="color:${allPassed ? '#27ae60' : '#e74c3c'};">${data.overallStatus}</h3>
+                            <p style="margin-top:10px;">Verified at: ${new Date(data.timestamp).toLocaleString()}</p>
+                            <table style="margin-top:15px;">
+                                <thead><tr><th>Step</th><th>Status</th><th>Details</th></tr></thead>
+                                <tbody>
+                                    ${data.verificationSteps.map(s => `
+                                        <tr>
+                                            <td>${s.step}</td>
+                                            <td><span class="badge ${s.status.includes('PASS') ? 'success' : 'failed'}">${s.status}</span></td>
+                                            <td>${s.details}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                            <div style="margin-top:15px;">
+                                <h4 style="color:#e94560;">System Info:</h4>
+                                <p>Bank: ${data.systemInfo.bankName} | Code: ${data.systemInfo.bankCode} | SWIFT: ${data.systemInfo.swiftCode}</p>
+                                <p>Customers: ${data.systemInfo.totalCustomers} | Transactions: ${data.systemInfo.totalTransactions} | Ledger: ${data.systemInfo.totalLedgerEntries} | Alerts: ${data.systemInfo.totalAlertsSent}</p>
+                            </div>
+                        </div>
+                    `;
+                    addTerminalLog('Flow verification: ALL SYSTEMS OPERATIONAL', 'success');
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        // ============================================================================
+        // SEARCH
+        // ============================================================================
+
+        async function searchCustomers() {
+            const query = document.getElementById('search-customer').value.toLowerCase();
+            try {
+                const response = await fetch(`${API_BASE}/admin/customers`);
+                const data = await response.json();
+                if (data.success) {
+                    const filtered = data.customers.filter(c => 
+                        c.accountNumber.includes(query) ||
+                        c.name.toLowerCase().includes(query) ||
+                        c.phone.includes(query)
+                    );
+                    const tbody = document.querySelector('#customers-table tbody');
+                    tbody.innerHTML = filtered.map(c => `
+                        <tr>
+                            <td>${c.accountNumber}</td>
+                            <td>${c.serialNumber}</td>
+                            <td>${c.name}</td>
+                            <td>${c.email}</td>
+                            <td>${c.phone}</td>
+                            <td style="color:#e94560;font-weight:bold;">-</td>
+                            <td>₦${formatNumber(c.balance.NGN || 0)}</td>
+                            <td><span class="badge ${c.status}">${c.status}</span></td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        // ============================================================================
+        // UTILITIES
+        // ============================================================================
+
+        function showAlertInline(elementId, message, type) {
+            const alert = document.getElementById(elementId);
+            alert.textContent = message;
+            alert.className = `alert ${type} active`;
+            setTimeout(() => alert.classList.remove('active'), 5000);
+        }
+
+        function showLoading(message) {
+            document.getElementById('loading-message').textContent = message;
+            document.getElementById('loading-overlay').classList.add('active');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-overlay').classList.remove('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        function showForgotPassword() {
+            const email = prompt('Enter your email address:');
+            if (email) {
+                alert('If your email exists in our system, your PIN will be sent to your registered phone number.');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            isAdmin = false;
+            showPage('login');
+            addTerminalLog('User logged out', 'info');
+        }
+
+        function addTerminalLog(message, type = 'info') {
+            const terminal = document.getElementById('system-terminal');
+            if (terminal) {
+                const line = document.createElement('div');
+                line.className = `terminal-line ${type}`;
+                line.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+                terminal.appendChild(line);
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+        }
+
+        function formatNumber(num, decimals = 2) {
+            return parseFloat(num || 0).toLocaleString('en-US', {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals
+            });
+        }
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-NG', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Initialize
+        window.onload = function() {
+            addTerminalLog('System initialized', 'success');
+            addTerminalLog('Bank: Global Pilgrim Bank Nigeria', 'info');
+            addTerminalLog('Transaction Flow: Debit → Payment → Ledger → Alert', 'info');
+        };
+    </script>
+</body>
+</html>
